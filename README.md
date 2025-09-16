@@ -1,9 +1,9 @@
-# uTerm (old)
+# uTerm (Archived: updated version coming soon)
 The **universe terminal** is a terminal-based universe explorer that lets you navigate galaxies, explore cosmic directories and discover new knowledge, all from a custom command-line interface. 
 
-**Try it now:** [universeterminal.com](https://www.universeterminal.com/)
-
 **Check our project demo here:** [universe terminal demo](https://www.youtube.com/watch?v=36T455y57i8)
+
+**Checkout the Devpost to learn more about the project:** [devpost - universe terminal](https://devpost.com/software/universe-terminal)
 
 ## Features
 - Terminal-style interface inspired by Linux/UNIX systems
@@ -42,6 +42,3 @@ uTerm simulates a UNIX filesystem where each directory is a piece of the univers
 2. Begin typing commands like 'ls', 'cd galaxy', or 'info'.
 3. Use 'help' anytime to get a full command list. 
 > **Tip:** Use `tree` to visualize the structure of your explored universe.
-
-## Feedback & Contributions
-Checkout the Devpost to learn more about the project: [devpost - universe terminal](https://devpost.com/software/universe-terminal)
