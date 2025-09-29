@@ -2,6 +2,7 @@ import "@/app/ui/globals.css";
 import type { Metadata } from "next";
 import { vt323 } from "@/app/ui/fonts";
 import { pressStart2P } from "@/app/ui/fonts";
+import Window from "@/app/ui/window";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${vt323.className} ${pressStart2P.className} antialiased`}
+        className={`${vt323.className}`}
       >
-        {children}
+        <Window>
+          {children}
+        </Window>
       </body>
     </html>
   );
