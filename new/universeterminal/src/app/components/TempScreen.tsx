@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 
 export default function TempScreen({ onNext }: { onNext: () => void }) {
     const options = [
-        { label: 'Precise', value: '0.1', description: ' -- Factual, grounded, realistic' },
-        { label: 'Balanced', value: '0.5', description: ' -- Logical, curious, exploratory' },
-        { label: 'Chaotic', value: '0.9', description: ' -- Paradoxes, multiverses, impossibilities'}
+        { label: 'PRECISE', value: '0.1', description: ' -- FACTUAL, GROUNDED, REALISTIC' },
+        { label: 'BALANCED', value: '0.5', description: ' -- LOGICAL, CURIOUS, EXPLORATORY' },
+        { label: 'CHAOTIC', value: '0.9', description: ' -- PARADOXES, MULTIVERSES, IMPOSSIBILITIES'}
     ];
 
     // Index of the current selected temperature option
@@ -25,7 +25,7 @@ export default function TempScreen({ onNext }: { onNext: () => void }) {
 
     return(
         <div className="h-full w-full flex flex-col justify-start">
-            <h1 className="mt-10 text-[1.83rem] text-center w-full px-8">Select your creativity temperature</h1>
+            <h1 className="mt-10 text-[1.83rem] text-center w-full px-8">SELECT YOUR CREATIVITY TEMPERATURE</h1>
     
             {/* Temperature options list */}  
             <div className="text-[1.83rem] flex flex-col gap-2 mt-12 mb-4 pl-16">

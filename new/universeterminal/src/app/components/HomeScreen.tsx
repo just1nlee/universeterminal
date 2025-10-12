@@ -33,12 +33,14 @@ export default function HomeScreen({ onNext }: { onNext: () => void }) {
           ${loaded ? 'opacity-100' : 'opacity-0'}`}
       >
         <UniverseTerminalLogo />
-        <p className="text-[1.83rem] text-bone leading-snug">PRESS [ ENTER ] TO CONTINUE</p>
         <p className="mt-6 text-[1.83rem] text-bone leading-snug">
-          A TERMINAL INTERFACE TO THE OBSERVABLE UNIVERSE
+          A COMMAND LINE INTERFACE TO THE OBSERVABLE UNIVERSE
         </p>
-        <div className="mb-6 flex items-end justify-center">
-        </div>
+        <p className="text-[1.83rem] text-bone leading-snug">
+          <span className={loaded ? "blink" : ""}>
+            PRESS [ ENTER ] TO CONTINUE
+          </span>
+        </p>
       </div>
     )
 }

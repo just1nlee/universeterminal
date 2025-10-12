@@ -23,6 +23,21 @@
   }
 }
 
+@keyframes blink {
+  50% { opacity: 1; }
+  0%, 100% { opacity: 0; }
+}
+
+.blink {
+  animation: blink 1.5s step-start infinite;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
 body {
   background: var(--background);
   color: var(--color-bone);
