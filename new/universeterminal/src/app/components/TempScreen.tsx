@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-export default function TempScreen({ onNext }: { onNext: () => void }) {
+export default function TempScreen({ onNext, setTemperature }: { onNext: () => void; setTemperature: (value: number) => void; }) {
     const options = [
         { label: 'PRECISE', value: '0.1', description: ' -- FACTUAL, GROUNDED, REALISTIC' },
         { label: 'BALANCED', value: '0.5', description: ' -- LOGICAL, CURIOUS, EXPLORATORY' },
@@ -14,14 +14,22 @@ export default function TempScreen({ onNext }: { onNext: () => void }) {
 
     useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "ArrowUp") {
+            setSelectedIndex((prev) => (prev === 0 ? options.length - 1 : prev - 1));
+        }
+        if (e.key === "ArrowDown") {
+            setSelectedIndex((prev) => (prev === options.length - 1 ? 0 : prev + 1));
+        }
         if (e.key === 'Enter') {
+            const chosenValue = parseFloat(options[selectedIndex].value);
+            setTemperature(chosenValue);  
             onNext();
         }
     };
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [onNext]);
+    }, [options, selectedIndex, onNext]);
 
     return(
         <div className="h-full w-full flex flex-col justify-start">
@@ -55,7 +63,14 @@ export default function TempScreen({ onNext }: { onNext: () => void }) {
             </div>
             
             <div className="absolute bottom-20 left-0 w-full text-center text-bone">
-            <p className="text-[1.83rem] text-bone leading-snug">PRESS [ ENTER ] TO EXPLORE</p>
+                <p className="text-[1.83rem] text-bone">
+                    USE ↑ ↓ TO SELECT 
+                </p>
+                <p className="text-[1.83rem] text-bone leading-snug">
+                    <span className="blink">
+                        PRESS [ ENTER ] TO EXPLORE
+                    </span>
+                </p>
             </div>
         </div>
     )
