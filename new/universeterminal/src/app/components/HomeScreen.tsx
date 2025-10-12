@@ -7,7 +7,8 @@ export default function HomeScreen({ onNext }: { onNext: () => void }) {
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        const timer = setTimeout(() => setLoaded(true), 100);
+        const timer = setTimeout(() => setLoaded(true), 1200);
+        // Play startup sound
         // const audio = new Audio('/startup.mp3');
         // audio.play().catch((err) => console.log("Autoplay blocked:", err));
 
@@ -29,14 +30,15 @@ export default function HomeScreen({ onNext }: { onNext: () => void }) {
     return(
         <div
         className={`flex flex-col items-center justify-center h-full text-bone 
-          transition-opacity duration-1000 
           ${loaded ? 'opacity-100' : 'opacity-0'}`}
       >
         <UniverseTerminalLogo />
-        <p className="mt-6 text-[1.83rem] leading-snug">
-          A terminal to the observable universe
+        <p className="text-[1.83rem] text-bone leading-snug">PRESS [ ENTER ] TO CONTINUE</p>
+        <p className="mt-6 text-[1.83rem] text-bone leading-snug">
+          A TERMINAL INTERFACE TO THE OBSERVABLE UNIVERSE
         </p>
-        <p className="text-[1.83rem] leading-snug">press [ ENTER ] to continue</p>
+        <div className="mb-6 flex items-end justify-center">
+        </div>
       </div>
     )
 }
