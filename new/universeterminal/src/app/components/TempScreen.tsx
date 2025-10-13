@@ -64,11 +64,11 @@ export default function TempScreen({ onNext, setTemperature }: { onNext: () => v
             
             <div className="absolute bottom-20 left-0 w-full text-center text-bone">
                 <p className="text-[1.83rem] text-bone">
-                    USE ↑ ↓ TO SELECT 
+                    USE ↑ ↓ TO NAVIGATE
                 </p>
                 <p className="text-[1.83rem] text-bone leading-snug">
                     <span className="blink">
-                        PRESS [ ENTER ] TO EXPLORE
+                        PRESS [ ENTER ] TO SELECT
                     </span>
                 </p>
             </div>

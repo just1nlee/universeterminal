@@ -7,6 +7,8 @@ import Window from "@/app/ui/window";
 export const metadata: Metadata = {
   title: "universeterminal",
   description: "The universe terminal is a terminal-based universe explorer that lets you navigate galaxies, explore cosmic directories and discover new knowledge, all from a custom command-line interface.",
+  icons: {
+  }
 };
 
 export default function RootLayout({

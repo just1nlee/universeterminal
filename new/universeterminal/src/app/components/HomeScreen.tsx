@@ -38,7 +38,7 @@ export default function HomeScreen({ onNext }: { onNext: () => void }) {
         </p>
         <p className="text-[1.83rem] text-bone leading-snug">
           <span className={loaded ? "blink" : ""}>
-            PRESS [ ENTER ] TO CONTINUE
+            PRESS [ ENTER ] TO EXPLORE
           </span>
         </p>
       </div>
