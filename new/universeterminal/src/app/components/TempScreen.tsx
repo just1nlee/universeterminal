@@ -62,7 +62,9 @@ export default function TempScreen({ onNext, setTemperature }: { onNext: () => v
             ))}
             </div>
             
-            <div className="absolute bottom-20 left-0 w-full text-center">
+            <div className="flex-1"></div>
+
+            <div className="mb-20 w-full leading-snug text-center">
                 <p className="text-[1.83rem]">
                     USE ↑ ↓ TO NAVIGATE
                 </p>
