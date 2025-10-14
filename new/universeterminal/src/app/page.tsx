@@ -4,7 +4,7 @@ import { useState } from 'react';
 import HomeScreen from '@/app/components/HomeScreen';
 import TempScreen from '@/app/components/TempScreen';
 import BootScreen from '@/app/components/BootScreen';
-import Terminal from '@/app/components/Terminal';
+import TerminalScreen from '@/app/components/TerminalScreen';
 
 export default function Page() {
   const [screen, setScreen] = useState<'home' | 'temp' | 'boot' | 'terminal'>('home');
@@ -18,6 +18,6 @@ export default function Page() {
     case 'boot':
       return <BootScreen onNext={() => setScreen('terminal')} />;
     case 'terminal':
-      return <Terminal temperature={temperature} onFinish={() => setScreen('home')} />;
+      return <TerminalScreen temperature={temperature} onFinish={() => setScreen('home')} />;
   }
 }

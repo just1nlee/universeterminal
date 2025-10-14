@@ -1,10 +1,12 @@
+'use client';
+
 import { useEffect } from 'react';
 
 export default function BootScreen({ onNext }: { onNext: () => void }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       onNext();
-    }, 3000); // length of your animation in ms
+    }, 0); // length of your animation in ms
 
     return () => clearTimeout(timer);
   }, [onNext]);

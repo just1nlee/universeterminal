@@ -32,15 +32,15 @@ export default function TempScreen({ onNext, setTemperature }: { onNext: () => v
     }, [options, selectedIndex, onNext]);
 
     return(
-        <div className="h-full w-full flex flex-col justify-start">
-            <h1 className="mt-10 text-[1.83rem] text-center w-full px-8">SELECT YOUR CREATIVITY TEMPERATURE</h1>
+        <div className="h-full w-full flex flex-col justify-start text-bone">
+            <h1 className="mt-10 text-[1.83rem] text-bone text-center w-full px-8">SELECT YOUR CREATIVITY TEMPERATURE</h1>
     
             {/* Temperature options list */}  
             <div className="text-[1.83rem] flex flex-col gap-2 mt-12 mb-4 pl-16">
 
             {/* Loop through temperature options */}  
             {options.map((opt, i) => (
-                <div key={i} className="text-bone flex items-center min-h-[2rem] leading-none">
+                <div key={i} className="flex items-center min-h-[2rem] leading-none">
 
                 {/* Displays selection arrow */}  
                 <span className="w-4 inline-block text-right">
@@ -62,11 +62,11 @@ export default function TempScreen({ onNext, setTemperature }: { onNext: () => v
             ))}
             </div>
             
-            <div className="absolute bottom-20 left-0 w-full text-center text-bone">
-                <p className="text-[1.83rem] text-bone">
+            <div className="absolute bottom-20 left-0 w-full text-center">
+                <p className="text-[1.83rem]">
                     USE ↑ ↓ TO NAVIGATE
                 </p>
-                <p className="text-[1.83rem] text-bone leading-snug">
+                <p className="text-[1.83rem] leading-snug">
                     <span className="blink">
                         PRESS [ ENTER ] TO SELECT
                     </span>
