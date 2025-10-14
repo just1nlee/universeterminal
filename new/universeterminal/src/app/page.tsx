@@ -1,23 +1,40 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import HomeScreen from '@/app/components/HomeScreen';
-import TempScreen from '@/app/components/TempScreen';
-import BootScreen from '@/app/components/BootScreen';
-import TerminalScreen from '@/app/components/TerminalScreen';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import HomeScreen from "@/app/components/HomeScreen";
+import TempScreen from "@/app/components/TempScreen";
+import BootScreen from "@/app/components/BootScreen";
 
 export default function Page() {
-  const [screen, setScreen] = useState<'home' | 'temp' | 'boot' | 'terminal'>('home');
+  const [screen, setScreen] = useState<"home" | "temp" | "boot">("home");
   const [temperature, setTemperature] = useState(0.7);
+  const router = useRouter();
 
   switch (screen) {
-    case 'home':
-      return <HomeScreen onNext={() => setScreen('temp')} />;
-    case 'temp':
-      return <TempScreen onNext={() => setScreen('boot')} setTemperature={setTemperature} />;
-    case 'boot':
-      return <BootScreen onNext={() => setScreen('terminal')} />;
-    case 'terminal':
-      return <TerminalScreen temperature={temperature} onFinish={() => setScreen('home')} />;
+    case "home":
+      return <HomeScreen onNext={() => setScreen("temp")} />;
+
+    case "temp":
+      return (
+        <TempScreen
+          setTemperature={setTemperature}
+          onNext={() => setScreen("boot")}
+        />
+      );
+
+    case "boot":
+      return (
+        <BootScreen
+          onNext={() => {
+            // save temperature in sessionStorage (so terminal can read it)
+            sessionStorage.setItem("temperature", String(temperature));
+            router.push("/terminal");
+          }}
+        />
+      );
+
+    default:
+      return null;
   }
 }
