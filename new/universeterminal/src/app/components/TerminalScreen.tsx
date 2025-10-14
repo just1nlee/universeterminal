@@ -37,7 +37,6 @@ export default function TerminalScreen({
     }
   }, [history]);
 
-  // Handle submitting commands
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!input.trim()) return;
@@ -48,15 +47,21 @@ export default function TerminalScreen({
     let output = "";
 
     try {
-      // 🔹 Replace this later with your AWS API Gateway call
-      if (input.trim().toLowerCase() === "help") {
-        output = "Available commands: help, exit, echo <text>";
-      } else if (input.trim().toLowerCase().startsWith("echo")) {
-        output = input.replace("echo", "").trim();
-      } else if (input.trim().toLowerCase() === "exit") {
-        output = "Goodbye! (returning to homepage soon)";
+      // Instead of local if/else logic, send command to API Gateway
+      const res = await fetch("/api/terminal", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          command: input,
+          temperature,
+        }),
+      });
+
+      if (!res.ok) {
+        output = `Error ${res.status}`;
       } else {
-        output = `Unknown command: ${input}`;
+        const data = await res.json();
+        output = data.message || JSON.stringify(data);
       }
     } catch (err: any) {
       output = `Error: ${err.message}`;
