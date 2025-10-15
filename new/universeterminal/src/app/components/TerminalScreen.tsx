@@ -116,6 +116,7 @@ export default function TerminalScreen({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          universe_id: universeId,
           command: input,
           temperature,
         }),
