@@ -4,8 +4,10 @@ import React, { useState, useRef, useEffect } from "react";
 
 export default function TerminalScreen({
   temperature,
+  onNext,
 }: {
   temperature: number;
+  onNext: () => void;
 }) {
   const [history, setHistory] = useState<string[]>([]);
   const [input, setInput] = useState("");
@@ -13,6 +15,49 @@ export default function TerminalScreen({
   const terminalContentRef = useRef<HTMLDivElement | null>(null);
   const [cursorBlink, setCursorBlink] = useState(true);
   const [cursorPosition, setCursorPosition] = useState(0);
+  const [universeId, setUniverseId] = useState<string | null>(null);
+
+  // On mount, generate or reuse a universeId
+  useEffect(() => {
+    let id = sessionStorage.getItem("universe_id");
+    if (!id) {
+      id =
+        typeof crypto !== "undefined" && crypto.randomUUID
+          ? crypto.randomUUID()
+          : "u" + Date.now(); // fallback
+      sessionStorage.setItem("universe_id", id);
+    }
+    setUniverseId(id);
+  }, []);
+
+  const builtInCommands: Record<
+    string,
+    (...args: string[]) => string | string[] | void
+  > = {
+    help: () => {
+      return [
+        "available commands:",
+        "help        - list available commands",
+        "clear       - clear the terminal",
+        "ls          - list files and directories",
+        "pwd         - print working directory",
+        "tree        - display explored universe",
+        "cd <dir>    - change directory",
+        "cat <file>   - display file contents",
+        "echo <str>  - echo text",
+        "info        - info about current directory",
+        "bigbang     - reset the universe",
+        "exit        - exit terminal and return to homepage",
+      ];
+    },
+    clear: () => {
+      // special: handled directly in submit
+      return "";
+    },
+    exit: () => {
+      onNext();
+    },
+  };
 
   // Blinking cursor effect
   useEffect(() => {
@@ -41,13 +86,32 @@ export default function TerminalScreen({
     e.preventDefault();
     if (!input.trim()) return;
 
-    // Add user command to history
+    // Add the command to history
     setHistory((prev) => [...prev, `* ${input}`]);
 
-    let output = "";
+    const [cmd, ...args] = input.trim().split(" ");
 
+    // Check if it's a UI-only command
+    if (builtInCommands[cmd]) {
+      if (cmd === "clear") {
+        // Reset history
+        setHistory([]);
+      } else {
+        const output = builtInCommands[cmd](...args);
+        if (output) {
+          setHistory((prev) => [
+            ...prev,
+            ...(Array.isArray(output) ? output : [output]),
+          ]);
+        }
+      }
+      setInput("");
+      return;
+    }
+
+    // Otherwise, send to API Gateway
+    let output = "";
     try {
-      // Instead of local if/else logic, send command to API Gateway
       const res = await fetch("/api/terminal", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -67,10 +131,7 @@ export default function TerminalScreen({
       output = `Error: ${err.message}`;
     }
 
-    // Add output to history
     setHistory((prev) => [...prev, output]);
-
-    // Reset input
     setInput("");
   }
 
@@ -79,10 +140,10 @@ export default function TerminalScreen({
       {/* History box */}
       <div
         ref={terminalContentRef}
-        className="flex-1 overflow-y-auto px-8 py-4 whitespace-pre-wrap text-lg"
+        className="flex-1 overflow-y-auto px-8 py-4 whitespace-pre-wrap text-lg leading-tight"
       >
         {history.map((line, i) => (
-          <div key={i} className="mb-1">
+          <div key={i} className="mb-0.5">
             {line}
           </div>
         ))}
