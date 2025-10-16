@@ -16,5 +16,13 @@ export default function TerminalPage() {
     return <div className="text-bone">Loading terminal...</div>;
   }
 
-  return <TerminalScreen temperature={temperature} />;
+  return (
+    <TerminalScreen
+      temperature={temperature}
+      onNext={() => {
+        sessionStorage.clear();
+        window.location.href = "/";
+      }}
+    />
+  );
 }

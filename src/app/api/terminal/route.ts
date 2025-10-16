@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { ErrorResponse, LambdaResponse } from "@/types/api";
+import { error } from "console";
 
 export async function POST(req: Request) {
   try {
@@ -12,10 +14,13 @@ export async function POST(req: Request) {
       body: JSON.stringify(body),
     });
 
-    const data = await res.json();
+    const data: LambdaResponse = await res.json();
 
     return NextResponse.json(data, { status: res.status });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    const error: ErrorResponse = {
+      error: err instanceof Error ? err.message : "Unknown error",
+    };
+    return NextResponse.json(error, { status: 500 });
   }
 }
