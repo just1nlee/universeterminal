@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - dev
 
 jobs:
   deploy:
@@ -39,5 +40,5 @@ jobs:
         working-directory: ./lambda/universeterminal-prod-bedrock-inference
         run: |
           aws lambda update-function-code \
-            --function-name universeterminal-prod-bedrock-inference \ 
+            --function-name universeterminal-prod-bedrock-inference \
             --zip-file fileb://lambda-package.zip

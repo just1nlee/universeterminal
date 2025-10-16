@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { LambdaResponse } from "@/types/api";
 
 export default function TerminalScreen({
   temperature,
@@ -59,6 +60,20 @@ export default function TerminalScreen({
     },
   };
 
+  const commandSchemas: Record<string, { args?: number | "any" | number[] }> = {
+    help: { args: 0 },
+    clear: { args: 0 },
+    exit: { args: 0 },
+    ls: { args: [0, 1] },
+    pwd: { args: 0 },
+    tree: { args: 0 },
+    info: { args: 0 },
+    echo: { args: "any" }, // allow arbitrary strings
+    cd: { args: [1] }, // requires one directory
+    cat: { args: [1] }, // requires one filename
+    bigbang: { args: 0 },
+  };
+
   // Blinking cursor effect
   useEffect(() => {
     const blinkInterval = setInterval(() => {
@@ -82,6 +97,7 @@ export default function TerminalScreen({
     }
   }, [history]);
 
+  // Command event handler
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!input.trim()) return;
@@ -90,6 +106,35 @@ export default function TerminalScreen({
     setHistory((prev) => [...prev, `* ${input}`]);
 
     const [cmd, ...args] = input.trim().split(" ");
+
+    // Validate command syntax before sending
+    if (commandSchemas[cmd]) {
+      const schema = commandSchemas[cmd];
+      const argSchema = schema.args;
+      if (argSchema !== undefined && argSchema !== "any") {
+        if (Array.isArray(argSchema)) {
+          if (!argSchema.includes(args.length)) {
+            setHistory((prev) => [
+              ...prev,
+              `Syntax error: '${cmd}' expects argument count in [${argSchema.join(
+                ", "
+              )}], got ${args.length}.`,
+            ]);
+            setInput("");
+            return;
+          }
+        } else if (typeof argSchema === "number") {
+          if (args.length !== argSchema) {
+            setHistory((prev) => [
+              ...prev,
+              `Syntax error: '${cmd}' expects ${argSchema} argument(s), got ${args.length}.`,
+            ]);
+            setInput("");
+            return;
+          }
+        }
+      }
+    }
 
     // Check if it's a UI-only command
     if (builtInCommands[cmd]) {
@@ -109,6 +154,16 @@ export default function TerminalScreen({
       return;
     }
 
+    // If command is not in schema at all
+    if (!commandSchemas[cmd]) {
+      setHistory((prev) => [
+        ...prev,
+        `universeterminal: command not found: ${cmd}`,
+      ]);
+      setInput("");
+      return;
+    }
+
     // Otherwise, send to API Gateway
     let output = "";
     try {
@@ -122,14 +177,19 @@ export default function TerminalScreen({
         }),
       });
 
+      const data: LambdaResponse = await res.json();
+
       if (!res.ok) {
-        output = `Error ${res.status}`;
+        output = "error" in data ? data.error : `Error ${res.status}`;
       } else {
-        const data = await res.json();
-        output = data.message || JSON.stringify(data);
+        output = "message" in data ? data.message : "No output";
       }
-    } catch (err: any) {
-      output = `Error: ${err.message}`;
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        output = `Error: ${err.message}`;
+      } else {
+        output = "Unknown error";
+      }
     }
 
     setHistory((prev) => [...prev, output]);
