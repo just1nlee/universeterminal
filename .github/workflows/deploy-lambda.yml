@@ -36,6 +36,7 @@ jobs:
           aws-region: us-west-2
 
       - name: Deploy to AWS Lambda
+        working-directory: ./lambda/universeterminal-prod-bedrock-inference
         run: |
           aws lambda update-function-code \
             --function-name universeterminal-prod-bedrock-inference \ 
