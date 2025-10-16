@@ -184,8 +184,12 @@ export default function TerminalScreen({
       } else {
         output = "message" in data ? data.message : "No output";
       }
-    } catch (err: any) {
-      output = `Error: ${err.message}`;
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        output = `Error: ${err.message}`;
+      } else {
+        output = "Unknown error";
+      }
     }
 
     setHistory((prev) => [...prev, output]);

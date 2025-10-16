@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { ErrorResponse, LambdaResponse } from "@/types/api";
-import { error } from "console";
 
 export async function POST(req: Request) {
   try {

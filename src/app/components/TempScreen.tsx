@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function TempScreen({
   onNext,
@@ -9,23 +9,26 @@ export default function TempScreen({
   onNext: () => void;
   setTemperature: (value: number) => void;
 }) {
-  const options = [
-    {
-      label: "PRECISE",
-      value: "0.1",
-      description: " -- FACTUAL, GROUNDED, REALISTIC",
-    },
-    {
-      label: "BALANCED",
-      value: "0.5",
-      description: " -- LOGICAL, CURIOUS, EXPLORATORY",
-    },
-    {
-      label: "CHAOTIC",
-      value: "0.9",
-      description: " -- PARADOXES, MULTIVERSES, IMPOSSIBILITIES",
-    },
-  ];
+  const options = useMemo(
+    () => [
+      {
+        label: "PRECISE",
+        value: "0.1",
+        description: " -- FACTUAL, GROUNDED, REALISTIC",
+      },
+      {
+        label: "BALANCED",
+        value: "0.5",
+        description: " -- LOGICAL, CURIOUS, EXPLORATORY",
+      },
+      {
+        label: "CHAOTIC",
+        value: "0.9",
+        description: " -- PARADOXES, MULTIVERSES, IMPOSSIBILITIES",
+      },
+    ],
+    []
+  );
 
   // Index of the current selected temperature option
   const [selectedIndex, setSelectedIndex] = useState(0);
