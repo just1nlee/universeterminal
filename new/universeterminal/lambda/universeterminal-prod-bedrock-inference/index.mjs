@@ -1,3 +1,5 @@
+// universeterminal-prod-bedrock-inference Lambda function handler
+
 import {
   DynamoDBClient,
   GetItemCommand,
