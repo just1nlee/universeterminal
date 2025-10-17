@@ -48,7 +48,7 @@ export default function TerminalScreen({
         "echo <str>  - echo text",
         "info        - info about current directory",
         "bigbang     - reset the universe",
-        "exit        - exit terminal and return to homepage",
+        "exit        - reset the universe and exit terminal",
       ];
     },
     clear: () => {
