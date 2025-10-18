@@ -92,7 +92,7 @@ export default function TempScreen({
       <div className="flex-1"></div>
 
       <div className="mb-20 w-full leading-snug text-center">
-        <p className="text-[1.83rem]">USE ↑ ↓ TO NAVIGATE</p>
+        <p className="text-[1.83rem]">USE ARROW KEYS TO NAVIGATE</p>
         <p className="text-[1.83rem] leading-snug">
           <span className="blink">PRESS [ ENTER ] TO SELECT</span>
         </p>
