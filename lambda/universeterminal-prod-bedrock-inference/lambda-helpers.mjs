@@ -3,12 +3,13 @@ import {
   joinPath,
   normalizePath,
   pathToParts,
-  makeBaseUniverse,
+  createBaseUniverse,
 } from "./fs-helpers.mjs";
 import { dir, file } from "./fs-types.mjs";
 import {
   generateContent,
   generateDirectoryContents,
+  generateFileContent,
 } from "./bedrock-helpers.mjs";
 
 export async function processCommand(state, command, temperature) {
@@ -228,7 +229,7 @@ async function handleInfo(state, args, temperature) {
 
 function handleBigBang(state, temperature) {
   // Reset universe to initial state
-  state.structure = makeBaseUniverse(temperature);
+  state.structure = createBaseUniverse(temperature);
   state.wd = "/universe";
   state.history = "Big Bang initiated! Universe reset to primordial state.";
 
@@ -257,17 +258,6 @@ async function expandDirectory(node, path, temperature) {
       node.contents.push(file(item.name, item.description || ""));
     }
   }
-}
-
-async function generateFileContent(filePath, filename, temperature) {
-  const prompt = `Generate realistic content for a file in a cosmic exploration filesystem.
-  
-  File: ${filename}
-  Location: ${filePath}
-  
-  Create 2-4 lines of content that would realistically be in this file. Use scientific, astronomical, or exploration language. Be creative but concise.`;
-
-  return await generateContent(prompt, temperature);
 }
 
 function generateTreeView(node, prefix = "") {
