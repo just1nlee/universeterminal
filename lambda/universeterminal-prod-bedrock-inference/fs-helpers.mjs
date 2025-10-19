@@ -90,48 +90,65 @@ export function normalizePath(path) {
  * @returns {DirNode}
  */
 export function createBaseUniverse(temperature) {
-  switch (temperature) {
+  return dir("/", [
+    dir("universe", [
+      dir("test1"),
+      dir("test2"),
+      dir("test3"),
+      file("readme.txt", "This is a test."),
+    ]),
+  ]);
+  /* switch (temperature) {
     case 0.1:
-      return dir("universe", [
-        dir("large_scale_structures"),
-        dir("superclusters"),
-        dir("fundamentals"),
-        file(
-          "readme.txt",
-          "Explore scientifically accurate structures of the universe."
-        ),
+      return dir("/", [
+        dir("universe", [
+          dir("large_scale_structures"),
+          dir("superclusters"),
+          dir("fundamentals"),
+          file(
+            "readme.txt",
+            "Explore scientifically accurate structures of the universe."
+          ),
+        ]),
       ]);
 
     case 0.5:
-      return dir("universe", [
-        dir("galaxies"),
-        dir("civilizations"),
-        dir("artifacts"),
-        file(
-          "captains_log.txt",
-          "Log Entry #1: Humanity reaches for the stars. What secrets await?"
-        ),
+      return dir("/", [
+        dir("universe", [
+          dir("galaxies"),
+          dir("civilizations"),
+          dir("artifacts"),
+          file(
+            "captains_log.txt",
+            "Log Entry #1: Humanity reaches for the stars. What secrets await?"
+          ),
+        ]),
       ]);
 
     case 0.9:
-      return dir("multiverse", [
-        dir("parallel_universes"),
-        dir("galactic_wars"),
-        dir("anomalies"),
-        file(
-          "prophecy.txt",
-          "Beware the collapse of dimensions. The multiverse teeters on chaos."
-        ),
+      return dir("/", [
+        dir("universe", [
+          dir("large_scale_structures"),
+          dir("superclusters"),
+          dir("fundamentals"),
+          file(
+            "readme.txt",
+            "Explore scientifically accurate structures of the universe."
+          ),
+        ]),
       ]);
-
     default:
-      return dir("universe", [
-        dir("galaxies"),
-        dir("stars"),
-        file(
-          "readme.txt",
-          "Welcome to the universeterminal. Explore the observable universe!"
-        ),
+          case 0.1:
+      return dir("/", [
+        dir("universe", [
+          dir("large_scale_structures"),
+          dir("superclusters"),
+          dir("fundamentals"),
+          file(
+            "readme.txt",
+            "Explore scientifically accurate structures of the universe."
+          ),
+        ]),
       ]);
-  }
+  } */
 }

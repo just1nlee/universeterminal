@@ -33,7 +33,7 @@ export async function getUniverseState(universe_id, temperature) {
     } else {
       // Create new universe state
       const newState = {
-        wd: "/universe",
+        wd: "/",
         structure: createBaseUniverse(temperature),
         history: "",
         temperature,

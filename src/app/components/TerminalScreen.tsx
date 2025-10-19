@@ -33,7 +33,9 @@ export default function TerminalScreen({
 
   const builtInCommands: Record<
     string,
-    (...args: string[]) => string | string[] | void
+    (
+      ...args: string[]
+    ) => string | string[] | void | Promise<string | string[] | void>
   > = {
     help: () => {
       return [
@@ -55,7 +57,36 @@ export default function TerminalScreen({
       // special: handled directly in submit
       return "";
     },
-    exit: () => {
+    exit: async () => {
+      // Reset the universe in Lambda first
+      if (universeId) {
+        try {
+          await fetch("/api/terminal", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              universe_id: universeId,
+              command: "bigbang",
+              temperature,
+            }),
+          });
+        } catch (err) {
+          console.error("Error resetting universe:", err);
+        }
+      }
+
+      // Generate new universe ID
+      const newId =
+        typeof crypto !== "undefined" && crypto.randomUUID
+          ? crypto.randomUUID()
+          : "u" + Date.now();
+      sessionStorage.setItem("universe_id", newId);
+      setUniverseId(newId);
+
+      // Clear terminal history
+      setHistory([]);
+
+      // Exit to next screen
       onNext();
     },
   };
@@ -142,7 +173,7 @@ export default function TerminalScreen({
         // Reset history
         setHistory([]);
       } else {
-        const output = builtInCommands[cmd](...args);
+        const output = await builtInCommands[cmd](...args);
         if (output) {
           setHistory((prev) => [
             ...prev,

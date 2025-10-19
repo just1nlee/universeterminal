@@ -1,11 +1,6 @@
 // universeterminal-prod-bedrock-inference Lambda function handler
 
-import {
-  DynamoDBClient,
-  GetItemCommand,
-  PutItemCommand,
-  UpdateItemCommand,
-} from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   BedrockRuntimeClient,
   InvokeModelCommand,
@@ -21,7 +16,6 @@ export const handler = async (event) => {
     const body = JSON.parse(event.body);
     let { universe_id, command, temperature = 0.7 } = body;
 
-    // Validation
     if (!universe_id || !command) {
       return {
         statusCode: 400,
@@ -29,15 +23,8 @@ export const handler = async (event) => {
       };
     }
 
-    // Handle bigbang command - create new universe
-    if (command.trim().toLowerCase() === "bigbang") {
-      universe_id = generateNewUniverseId(); // You'll need to implement this
-    }
-
-    // Get state
     let state = await getUniverseState(universe_id, temperature);
 
-    // Process command
     const result = await processCommand(state, command, temperature);
 
     // Save state if needed
@@ -49,7 +36,7 @@ export const handler = async (event) => {
       statusCode: 200,
       body: JSON.stringify({
         message: result.output,
-        universe_id: universe_id, // Return the universe_id (important for bigbang)
+        universe_id: universe_id,
       }),
     };
   } catch (error) {
@@ -60,9 +47,3 @@ export const handler = async (event) => {
     };
   }
 };
-
-function generateNewUniverseId() {
-  return (
-    "universe_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9)
-  );
-}

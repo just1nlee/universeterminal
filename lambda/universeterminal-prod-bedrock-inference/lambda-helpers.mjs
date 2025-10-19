@@ -39,7 +39,7 @@ export async function processCommand(state, command, temperature) {
 
     default:
       return {
-        output: `Command '${cmd}' not recognized. Available: pwd, ls, cd, tree, cat, info, bigbang`,
+        output: "univeseterminal: command not found: " + cmd,
         needsSave: false,
       };
   }
@@ -74,7 +74,6 @@ async function handleLs(state, args, temperature) {
   }
 
   let hasExpanded = false;
-
   // Check if directory needs AI-generated content
   if (needsExpansion(node)) {
     await expandDirectory(node, targetPath, temperature);
@@ -230,7 +229,7 @@ async function handleInfo(state, args, temperature) {
 function handleBigBang(state, temperature) {
   // Reset universe to initial state
   state.structure = createBaseUniverse(temperature);
-  state.wd = "/universe";
+  state.wd = "/";
   state.history = "Big Bang initiated! Universe reset to primordial state.";
 
   return {
