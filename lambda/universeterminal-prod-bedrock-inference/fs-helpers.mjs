@@ -1,4 +1,4 @@
-import { dir, file } from "./fs-types.js";
+import { dir, file } from "./fs-types.mjs";
 
 /**
  * Convert path string to array of parts
@@ -89,7 +89,7 @@ export function normalizePath(path) {
  * @param {number} temperature
  * @returns {DirNode}
  */
-export function makeBaseUniverse(temperature) {
+export function createBaseUniverse(temperature) {
   switch (temperature) {
     case 0.1:
       return dir("universe", [

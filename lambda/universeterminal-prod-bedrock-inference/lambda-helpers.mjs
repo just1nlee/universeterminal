@@ -4,12 +4,12 @@ import {
   normalizePath,
   pathToParts,
   makeBaseUniverse,
-} from "./fs-helpers.js";
-import { dir, file } from "./fs-types.js";
+} from "./fs-helpers.mjs";
+import { dir, file } from "./fs-types.mjs";
 import {
   generateContent,
   generateDirectoryContents,
-} from "./bedrock-helpers.js";
+} from "./bedrock-helpers.mjs";
 
 export async function processCommand(state, command, temperature) {
   const [cmd, ...args] = command.trim().split(/\s+/);

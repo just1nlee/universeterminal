@@ -3,7 +3,7 @@ import {
   GetItemCommand,
   PutItemCommand,
 } from "@aws-sdk/client-dynamodb";
-import { createBaseUniverse } from "./fs-helpers.js";
+import { createBaseUniverse } from "./fs-helpers.mjs";
 
 const ddb = new DynamoDBClient({ region: "us-west-2" });
 
