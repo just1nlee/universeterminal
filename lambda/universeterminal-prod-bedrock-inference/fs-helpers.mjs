@@ -90,15 +90,70 @@ export function normalizePath(path) {
  * @returns {DirNode}
  */
 export function createBaseUniverse(temperature) {
-  return dir("/", [
-    dir("universe", [
-      dir("test1"),
-      dir("test2"),
-      dir("test3"),
-      file("readme.txt", "This is a test."),
-    ]),
-  ]);
-  /* switch (temperature) {
+  switch (temperature) {
+    case 0.1:
+      return dir("/", [
+        dir("universe", [
+          dir("large_scale_structures"),
+          dir("superclusters"),
+          dir("galaxies"),
+          dir("fundamentals", [dir("particles"), dir("forces")]),
+          dir("epochs"),
+          file(
+            "readme.txt",
+            "Explore scientifically accurate structures of the universe."
+          ),
+        ]),
+      ]);
+
+    case 0.5:
+      return dir("/", [
+        dir("universe", [
+          dir("large_scale_structures"),
+          dir("superclusters"),
+          dir("galaxies", [
+            dir("milky_way", [
+              dir("solar_system", [
+                dir("earth", [
+                  dir("history"),
+                  dir("culture"),
+                  dir("artifacts", [
+                    file(
+                      "voyager.txt",
+                      "The Voyager probe carries the golden record."
+                    ),
+                    file(
+                      "pioneer.txt",
+                      "The Pioneer plaque depicts humans greeting the stars."
+                    ),
+                    file(
+                      "relics.txt",
+                      "Strange relics found in forgotten ruins..."
+                    ),
+                  ]),
+                  file(
+                    "captains_log.txt",
+                    "Log Entry #1: Humanity reaches for the stars."
+                  ),
+                ]),
+              ]),
+            ]),
+          ]),
+          dir("fundamentals", [dir("particles"), dir("forces")]),
+          file(
+            "readme.txt",
+            "This universe blends scientific exploration with traces of civilizations, artifacts, and logs. Dig deep to uncover them."
+          ),
+        ]),
+      ]);
+
+    case 0.9:
+      return dir("/", [
+        dir("universe-616", []),
+        dir("universe-42", []),
+        dir("universe-??██", []),
+      ]);
+    default:
     case 0.1:
       return dir("/", [
         dir("universe", [
@@ -111,44 +166,5 @@ export function createBaseUniverse(temperature) {
           ),
         ]),
       ]);
-
-    case 0.5:
-      return dir("/", [
-        dir("universe", [
-          dir("galaxies"),
-          dir("civilizations"),
-          dir("artifacts"),
-          file(
-            "captains_log.txt",
-            "Log Entry #1: Humanity reaches for the stars. What secrets await?"
-          ),
-        ]),
-      ]);
-
-    case 0.9:
-      return dir("/", [
-        dir("universe", [
-          dir("large_scale_structures"),
-          dir("superclusters"),
-          dir("fundamentals"),
-          file(
-            "readme.txt",
-            "Explore scientifically accurate structures of the universe."
-          ),
-        ]),
-      ]);
-    default:
-          case 0.1:
-      return dir("/", [
-        dir("universe", [
-          dir("large_scale_structures"),
-          dir("superclusters"),
-          dir("fundamentals"),
-          file(
-            "readme.txt",
-            "Explore scientifically accurate structures of the universe."
-          ),
-        ]),
-      ]);
-  } */
+  }
 }
