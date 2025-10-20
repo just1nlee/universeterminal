@@ -7,7 +7,7 @@ export default function HomeScreen({ onNext }: { onNext: () => void }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoaded(true), 1200);
+    const timer = setTimeout(() => setLoaded(true), 1400);
     // Play startup sound
     // const audio = new Audio('/startup.mp3');
     // audio.play().catch((err) => console.log("Autoplay blocked:", err));
@@ -44,9 +44,7 @@ export default function HomeScreen({ onNext }: { onNext: () => void }) {
 
       {/* Bottom prompt */}
       <p className="mb-20 text-[1.83rem] leading-snug text-center">
-        <span className={loaded ? "blink" : ""}>
-          PRESS [ ENTER ] TO EXPLORE
-        </span>
+        <span className={loaded ? "blink" : ""}>PRESS [ ENTER ] TO BEGIN</span>
       </p>
     </div>
   );
