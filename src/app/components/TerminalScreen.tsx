@@ -126,6 +126,63 @@ export default function TerminalScreen({
     }
   }, [history]);
 
+  useEffect(() => {
+    const maintainFocus = () => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    };
+
+    // Focus on mount
+    maintainFocus();
+
+    // Re-focus when clicking anywhere on the terminal
+    const handleClick = () => {
+      maintainFocus();
+    };
+
+    // Re-focus when the input loses focus
+    const handleBlur = () => {
+      setTimeout(maintainFocus, 0);
+    };
+
+    // Add event listeners
+    document.addEventListener("click", handleClick);
+    if (inputRef.current) {
+      inputRef.current.addEventListener("blur", handleBlur);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+      if (inputRef.current) {
+        inputRef.current.removeEventListener("blur", handleBlur);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      setCursorPosition(inputRef.current.selectionStart || 0);
+    }
+  }, [input]);
+
+  // Handle arrow keys and mouse clicks for cursor position
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+
+    // Use setTimeout to get the updated selection after the key event
+    setTimeout(() => {
+      setCursorPosition(target.selectionStart || 0);
+    }, 0);
+  };
+
+  // Handle clicks to update cursor position
+  const handleInputClick = () => {
+    if (inputRef.current) {
+      setCursorPosition(inputRef.current.selectionStart || 0);
+    }
+  };
+
   // Command event handler
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -226,7 +283,10 @@ export default function TerminalScreen({
   }
 
   return (
-    <div className="flex flex-col h-full w-full bg-black text-bone">
+    <div
+      className="flex flex-col h-full w-full bg-black text-bone"
+      onClick={() => inputRef.current?.focus()}
+    >
       {/* History box */}
       <div
         ref={terminalContentRef}
@@ -264,6 +324,8 @@ export default function TerminalScreen({
               className="opacity-0 absolute top-0 left-0 w-full h-full bg-transparent border-none outline-none"
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              onClick={handleInputClick}
               autoFocus
             />
           </div>
