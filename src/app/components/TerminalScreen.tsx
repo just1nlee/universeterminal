@@ -47,7 +47,6 @@ export default function TerminalScreen({
         "tree        - display explored universe",
         "cd <dir>    - change directory",
         "cat <file>   - display file contents",
-        "echo <str>  - echo text",
         "info        - info about current directory",
         "bigbang     - reset the universe",
         "exit        - reset the universe and exit terminal",
@@ -99,8 +98,7 @@ export default function TerminalScreen({
     pwd: { args: 0 },
     tree: { args: 0 },
     info: { args: 0 },
-    echo: { args: "any" }, // allow arbitrary strings
-    cd: { args: [1] }, // requires one directory
+    cd: { args: [0, 1] }, // requires one directory
     cat: { args: [1] }, // requires one filename
     bigbang: { args: 0 },
   };
