@@ -5,10 +5,11 @@ interface TerminalInputProps {
   setInput: (value: string) => void;
   cursorPosition: number;
   cursorBlink: boolean;
-  inputRef: React.RefObject<HTMLInputElement>;
+  inputRef: React.RefObject<HTMLInputElement | null>;
   onSubmit: (e: React.FormEvent) => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onClick: () => void;
+  isLocked?: boolean;
 }
 
 export default function TerminalInput({
@@ -20,6 +21,7 @@ export default function TerminalInput({
   onSubmit,
   onKeyDown,
   onClick,
+  isLocked = false,
 }: TerminalInputProps) {
   return (
     <form
@@ -34,7 +36,7 @@ export default function TerminalInput({
           </span>
           <span
             className={`h-5 w-2 bg-bone inline-block align-middle ${
-              cursorBlink ? "opacity-100" : "opacity-0"
+              cursorBlink && !isLocked ? "opacity-100" : "opacity-0"
             }`}
           ></span>
           <span className="whitespace-pre">
@@ -45,10 +47,11 @@ export default function TerminalInput({
             type="text"
             className="opacity-0 absolute top-0 left-0 w-full h-full bg-transparent border-none outline-none"
             value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={onKeyDown}
-            onClick={onClick}
-            autoFocus
+            onChange={(e) => !isLocked && setInput(e.target.value)}
+            onKeyDown={(e) => !isLocked && onKeyDown(e)}
+            onClick={() => !isLocked && onClick()}
+            disabled={isLocked}
+            autoFocus={!isLocked}
           />
         </div>
       </div>

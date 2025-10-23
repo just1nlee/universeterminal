@@ -1,6 +1,6 @@
 import { useEffect, RefObject } from "react";
 
-export function useInputFocus(inputRef: RefObject<HTMLInputElement>) {
+export function useInputFocus(inputRef: RefObject<HTMLInputElement | null>) {
   useEffect(() => {
     const maintainFocus = () => {
       if (inputRef.current) {
@@ -23,14 +23,15 @@ export function useInputFocus(inputRef: RefObject<HTMLInputElement>) {
 
     // Add event listeners
     document.addEventListener("click", handleClick);
-    if (inputRef.current) {
-      inputRef.current.addEventListener("blur", handleBlur);
+    const currentInput = inputRef.current;
+    if (currentInput) {
+      currentInput.addEventListener("blur", handleBlur);
     }
 
     return () => {
       document.removeEventListener("click", handleClick);
-      if (inputRef.current) {
-        inputRef.current.removeEventListener("blur", handleBlur);
+      if (currentInput) {
+        currentInput.removeEventListener("blur", handleBlur);
       }
     };
   }, [inputRef]);
