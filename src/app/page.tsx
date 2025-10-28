@@ -4,7 +4,7 @@ import { useState } from "react";
 import HomeScreen from "@/app/components/HomeScreen";
 import TempScreen from "@/app/components/TempScreen";
 import BootScreen from "@/app/components/BootScreen";
-import TerminalScreen from "@/app/components/TerminalScreen";
+import TerminalScreen from "@/app/terminal/components/TerminalScreen";
 
 export default function Page() {
   const [screen, setScreen] = useState<"home" | "temp" | "boot" | "terminal">(
