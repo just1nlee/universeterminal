@@ -1,13 +1,14 @@
-import Image from 'next/image';
+import Image from "next/image";
 
 export default function UTermLogo() {
   return (
-    <div className="w-full max-w-[336px] aspect-[336/372]">
+    <div className="w-full max-w-[645]">
       <Image
-        src="/images/uterm-logo.png"
+        src="/images/universeterminal-logo.png"
         alt="UTerm Logo"
-        width={336}
-        height={372}
+        width={1832}
+        height={512}
+        draggable={false}
         className="w-full h-full object-contain"
       />
     </div>

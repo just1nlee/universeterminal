@@ -447,10 +447,6 @@ img, video {
   display: contents;
 }
 
-.aspect-\[336\/372\] {
-  aspect-ratio: 336 / 372;
-}
-
 .aspect-\[912\/610\] {
   aspect-ratio: 912 / 610;
 }
@@ -503,8 +499,8 @@ img, video {
   width: 100%;
 }
 
-.max-w-\[336px\] {
-  max-width: 336px;
+.max-w-\[645\] {
+  max-width: 645px;
 }
 
 .max-w-\[912px\] {
@@ -722,8 +718,8 @@ img, video {
   line-height: 2rem;
 }
 
-.text-\[1\.83rem\] {
-  font-size: 1.83rem;
+.text-\[2rem\] {
+  font-size: 2rem;
 }
 
 .text-sm {
@@ -793,6 +789,20 @@ img, video {
 .outline-none {
   outline: 2px solid #0000;
   outline-offset: 2px;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.blink {
+  animation: 1.5s step-start infinite blink;
 }
 
 body {
