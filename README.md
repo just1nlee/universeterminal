@@ -1,4 +1,4 @@
-# universeterminal
+# (ARCHIVED) universeterminalv2
 
 The **universe terminal** is a terminal-based universe explorer that lets you navigate galaxies, explore cosmic directories and discover new knowledge, all from a custom command-line interface.
 
