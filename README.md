@@ -1,4 +1,4 @@
-# uTerm (Archived: updated version coming soon)
+# (ARCHIVED) universeterminalv1
 The **universe terminal** is a terminal-based universe explorer that lets you navigate galaxies, explore cosmic directories and discover new knowledge, all from a custom command-line interface. 
 
 **Check our project demo here:** [universe terminal demo](https://www.youtube.com/watch?v=36T455y57i8)
