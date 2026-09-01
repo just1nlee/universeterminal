@@ -1,0 +1,50 @@
+{
+  "name": "/",
+  "explored": true,
+  "children": [
+    {
+      "name": "observable_universe",
+      "explored": false,
+      "children": [
+        {
+          "name": "milky_way",
+          "explored": false,
+          "children": [
+            {
+              "name": "solar_system",
+              "explored": false,
+              "children": [
+                {
+                  "name": "earth",
+                  "explored": false,
+                  "children": []
+                },
+                {
+                  "name": "mars",
+                  "explored": false,
+                  "children": []
+                },
+                {
+                  "name": "jupiter",
+                  "explored": false,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "andromeda_galaxy",
+          "explored": false,
+          "children": [
+            {
+              "name": "supermassive_black_hole",
+              "explored": false,
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
