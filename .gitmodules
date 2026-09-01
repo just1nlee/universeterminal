@@ -1,9 +1,0 @@
-[submodule "universeterminalv1"]
-	path = universeterminalv1
-	url = git@github.com:just1nlee/universeterminalv1.git
-[submodule "universeterminalv2"]
-	path = universeterminalv2
-	url = git@github.com:just1nlee/universeterminalv2.git
-[submodule "universeterminalv3"]
-	path = universeterminalv3
-	url = git@github.com:just1nlee/universeterminalv3.git
